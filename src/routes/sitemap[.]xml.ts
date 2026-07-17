@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 
-const BASE_URL = "";
+const BASE_URL = "https://vastavdigital.com";
 
 const paths = ["/", "/about", "/services", "/industries", "/portfolio", "/case-studies", "/pricing", "/blog", "/careers", "/contact"];
 

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero, Section } from "@/components/site/Section";
 import { CTA } from "@/components/site/CTA";
-import { ArrowRight, Clock } from "lucide-react";
+import { ArrowRight, Clock, TrendingUp } from "lucide-react";
 
 export const Route = createFileRoute("/blog")({
   head: () => ({
@@ -37,17 +37,26 @@ function Blog() {
 
       <Section>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((p) => (
-            <a key={p.title} href="#" className="group overflow-hidden rounded-3xl border border-border bg-card transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]">
-              <div className={`aspect-[16/10] w-full bg-gradient-to-br ${p.tint}`} />
-              <div className="p-6">
-                <div className="flex items-center gap-3 text-xs">
-                  <span className="rounded-full bg-royal-soft px-3 py-1 font-medium text-royal-deep">{p.category}</span>
-                  <span className="flex items-center gap-1 text-muted-foreground"><Clock className="h-3 w-3" /> {p.read}</span>
+          {posts.map((p, i) => (
+            <a
+              key={p.title}
+              href="#"
+              className={`group overflow-hidden rounded-3xl border border-border bg-card transition-all duration-300 hover:-translate-y-2 hover:shadow-[var(--shadow-card-hover)] animate-fade-up stagger-${Math.min(i + 1, 6)}`}
+            >
+              <div className={`relative aspect-[16/10] w-full bg-gradient-to-br ${p.tint}`}>
+                <div className="absolute inset-0 grid-lines opacity-20" />
+                <div className="absolute bottom-4 left-4">
+                  <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white backdrop-blur">{p.category}</span>
                 </div>
-                <h3 className="mt-4 font-display text-lg font-semibold leading-snug">{p.title}</h3>
+              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {p.read}</span>
+                  <span className="flex items-center gap-1"><TrendingUp className="h-3 w-3" /> Featured</span>
+                </div>
+                <h3 className="mt-3 font-display text-lg font-semibold leading-snug transition-colors group-hover:text-royal-deep">{p.title}</h3>
                 <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-royal-deep">
-                  Read article <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                  Read article <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                 </span>
               </div>
             </a>

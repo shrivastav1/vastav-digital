@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero, Section } from "@/components/site/Section";
 import { CTA } from "@/components/site/CTA";
-import { ShoppingBag, Building2, Stethoscope, GraduationCap, UtensilsCrossed, Factory, Briefcase, Home, Plane, Landmark, Sparkles, Smartphone } from "lucide-react";
+import { ShoppingBag, Building2, Stethoscope, GraduationCap, UtensilsCrossed, Factory, Briefcase, Chrome as Home, Plane, Landmark, Sparkles, Smartphone } from "lucide-react";
 
 export const Route = createFileRoute("/industries")({
   head: () => ({
@@ -43,13 +43,16 @@ function Industries() {
 
       <Section>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {industries.map((i) => (
-            <div key={i.name} className="group rounded-3xl border border-border bg-card p-8 transition-all hover:-translate-y-1 hover:border-royal">
-              <div className="grid h-14 w-14 place-items-center rounded-2xl btn-royal">
-                <i.icon className="h-7 w-7 text-white" />
+          {industries.map((i, idx) => (
+            <div key={i.name} className={`card-premium group relative overflow-hidden p-8 animate-fade-up stagger-${Math.min(idx + 1, 6)}`}>
+              <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100" style={{ background: "radial-gradient(circle, #1E5BFF, transparent 60%)" }} />
+              <div className="relative">
+                <div className="grid h-14 w-14 place-items-center rounded-2xl btn-royal transition-transform group-hover:scale-110">
+                  <i.icon className="h-7 w-7 text-white" />
+                </div>
+                <h3 className="mt-5 font-display text-xl font-semibold">{i.name}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{i.desc}</p>
               </div>
-              <h3 className="mt-5 font-display text-xl font-semibold">{i.name}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{i.desc}</p>
             </div>
           ))}
         </div>

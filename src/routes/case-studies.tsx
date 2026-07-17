@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero, Section } from "@/components/site/Section";
 import { CTA } from "@/components/site/CTA";
-import { ArrowRight, TrendingUp } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/case-studies")({
   head: () => ({
@@ -24,6 +24,7 @@ const studies = [
     headline: "From 2.4x to 9.1x ROAS in 90 days",
     summary: "Rebuilt the funnel, launched a creative studio, and unlocked scaled Meta + Google performance.",
     stats: [["ROAS", "9.1x"], ["Revenue", "+412%"], ["CAC", "-38%"]],
+    tint: "from-[#1E5BFF] to-[#6DA7FF]",
   },
   {
     brand: "Nova Health",
@@ -31,6 +32,7 @@ const studies = [
     headline: "218% lead lift with local SEO + performance",
     summary: "Hyper-local landing pages, GBP optimization and Meta lead ads delivered a full-funnel win.",
     stats: [["Leads", "+218%"], ["CPL", "-52%"], ["Clinics", "+14"]],
+    tint: "from-[#0F172A] to-[#1E5BFF]",
   },
   {
     brand: "FinKart",
@@ -38,6 +40,7 @@ const studies = [
     headline: "-46% CAC with AI-driven qualification",
     summary: "Deployed an AI qualifier + LinkedIn ABM to compress sales cycles and cut acquisition cost.",
     stats: [["CAC", "-46%"], ["MQL→SQL", "+2.7x"], ["Payback", "3.1mo"]],
+    tint: "from-[#111111] to-[#334155]",
   },
 ];
 
@@ -53,8 +56,12 @@ function CaseStudies() {
       <Section>
         <div className="grid gap-10">
           {studies.map((s, i) => (
-            <article key={s.brand} className="grid gap-8 rounded-3xl border border-border bg-card p-8 md:grid-cols-[1.5fr_1fr] md:p-12">
-              <div>
+            <article
+              key={s.brand}
+              className={`group relative overflow-hidden rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-card)] transition-all duration-300 hover:shadow-[var(--shadow-card-hover)] md:grid-cols-[1.5fr_1fr] md:p-12 md:grid animate-fade-up stagger-${Math.min(i + 1, 6)}`}
+            >
+              <div className={`absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gradient-to-br ${s.tint} opacity-10 blur-3xl transition-opacity duration-500 group-hover:opacity-20`} />
+              <div className="relative">
                 <div className="flex items-center gap-3 text-xs font-medium">
                   <span className="rounded-full bg-royal-soft px-3 py-1 text-royal-deep">{s.vertical}</span>
                   <span className="text-muted-foreground">Case study 0{i + 1}</span>
@@ -68,7 +75,7 @@ function CaseStudies() {
                   </Link>
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-3 md:grid-cols-1">
+              <div className="relative mt-8 grid grid-cols-3 gap-3 md:mt-0 md:grid-cols-1">
                 {s.stats.map(([k, v]) => (
                   <div key={k} className="glass rounded-2xl p-5 text-center md:text-left">
                     <p className="text-xs text-muted-foreground">{k}</p>

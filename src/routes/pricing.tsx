@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero, Section, SectionHeader } from "@/components/site/Section";
 import { CTA } from "@/components/site/CTA";
-import { Check, Sparkles } from "lucide-react";
+import { Check, Sparkles, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/pricing")({
@@ -40,8 +40,16 @@ const plans = [
   },
 ];
 
+const faqs = [
+  ["Is there a minimum contract?", "Most engagements start with a 3-month sprint. After that, month-to-month."],
+  ["Do you work with startups?", "Yes — we have dedicated plans for pre-seed to Series B brands."],
+  ["What's included in the free audit?", "A 30-page report covering ads, SEO, website, funnel and creative — with a 90-day plan."],
+  ["Do you offer white-label?", "Yes, for agencies and consultancies. Ask us about partner pricing."],
+];
+
 function Pricing() {
   const [cycle, setCycle] = useState<"monthly" | "quarterly">("monthly");
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
     <>
@@ -67,10 +75,14 @@ function Pricing() {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3">
-          {plans.map((p) => (
+          {plans.map((p, i) => (
             <div
               key={p.name}
-              className={`relative rounded-3xl border p-8 ${p.highlight ? "border-royal bg-[oklch(0.16_0.02_260)] text-white shadow-[var(--shadow-elegant)]" : "border-border bg-card"}`}
+              className={`relative rounded-3xl border p-8 transition-all duration-300 hover:-translate-y-2 animate-fade-up stagger-${i + 1} ${
+                p.highlight
+                  ? "border-royal bg-[oklch(0.16_0.02_260)] text-white shadow-[var(--shadow-elegant)]"
+                  : "card-premium"
+              }`}
             >
               {p.highlight && (
                 <div className="absolute -top-3 left-1/2 flex -translate-x-1/2 items-center gap-1 rounded-full btn-royal px-3 py-1 text-xs font-semibold">
@@ -93,7 +105,9 @@ function Pricing() {
               </ul>
               <Link
                 to="/contact"
-                className={`mt-8 inline-flex w-full items-center justify-center rounded-full px-6 py-3 text-sm font-semibold ${p.highlight ? "btn-royal" : "border border-royal text-royal-deep hover:bg-royal-soft"}`}
+                className={`mt-8 inline-flex w-full items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-all ${
+                  p.highlight ? "btn-royal" : "btn-ghost-royal"
+                }`}
               >
                 Get started
               </Link>
@@ -104,20 +118,21 @@ function Pricing() {
 
       <Section>
         <SectionHeader eyebrow="FAQ" title="Frequently asked questions" />
-        <div className="mt-10 grid gap-4">
-          {[
-            ["Is there a minimum contract?", "Most engagements start with a 3-month sprint. After that, month-to-month."],
-            ["Do you work with startups?", "Yes — we have dedicated plans for pre-seed to Series B brands."],
-            ["What's included in the free audit?", "A 30-page report covering ads, SEO, website, funnel and creative — with a 90-day plan."],
-            ["Do you offer white-label?", "Yes, for agencies and consultancies. Ask us about partner pricing."],
-          ].map(([q, a]) => (
-            <details key={q} className="group rounded-2xl border border-border bg-card p-6">
-              <summary className="flex cursor-pointer items-center justify-between text-sm font-semibold">
+        <div className="mt-10 grid gap-3">
+          {faqs.map(([q, a], i) => (
+            <div key={q} className="rounded-2xl border border-border bg-card overflow-hidden">
+              <button
+                aria-expanded={openFaq === i}
+                onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                className="flex w-full cursor-pointer items-center justify-between p-6 text-sm font-semibold text-left"
+              >
                 {q}
-                <span className="text-royal transition-transform group-open:rotate-45">+</span>
-              </summary>
-              <p className="mt-3 text-sm text-muted-foreground">{a}</p>
-            </details>
+                <ChevronDown className={`h-4 w-4 shrink-0 text-royal transition-transform ${openFaq === i ? "rotate-180" : ""}`} />
+              </button>
+              {openFaq === i && (
+                <p className="px-6 pb-6 text-sm text-muted-foreground animate-fade-in">{a}</p>
+              )}
+            </div>
           ))}
         </div>
       </Section>

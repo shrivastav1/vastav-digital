@@ -38,13 +38,18 @@ function Portfolio() {
       <Section>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((p, i) => (
-            <a key={p.name} href="#" className="group relative block overflow-hidden rounded-3xl border border-border">
+            <a
+              key={p.name}
+              href="#"
+              className={`group relative block overflow-hidden rounded-3xl border border-border transition-all duration-300 hover:-translate-y-2 hover:shadow-[var(--shadow-card-hover)] animate-fade-up stagger-${Math.min(i + 1, 6)}`}
+            >
               <div className={`aspect-[4/5] w-full bg-gradient-to-br ${p.tint} p-8 text-white`}>
-                <div className="flex items-center justify-between">
+                <div className="absolute inset-0 grid-lines opacity-20" />
+                <div className="relative flex items-center justify-between">
                   <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-medium backdrop-blur">{p.tag}</span>
                   <ArrowUpRight className="h-5 w-5 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
                 </div>
-                <div className="flex h-full flex-col justify-end pt-16">
+                <div className="relative flex h-full flex-col justify-end pt-16">
                   <p className="font-display text-4xl font-bold">{p.name}</p>
                   <p className="mt-1 text-3xl font-bold text-white/85">{p.metric}</p>
                 </div>

@@ -48,10 +48,8 @@ function About() {
             <SectionHeader eyebrow="Our Story" title="Founded to fix agency work." subtitle="After a decade in-house at fast-scaling brands, we noticed a gap: strategy, creative and engineering rarely spoke to each other. Vastav closes that gap — one operating system for growth." />
           </div>
           <div className="grid grid-cols-2 gap-4">
-            {[
-              ["2019", "Founded"], ["320+", "Clients Scaled"], ["45", "Team"], ["12", "Countries Served"],
-            ].map(([v, l]) => (
-              <div key={l} className="glass rounded-2xl p-6">
+            {[["2019", "Founded"], ["320+", "Clients Scaled"], ["45", "Team"], ["12", "Countries Served"]].map(([v, l], i) => (
+              <div key={l} className={`glass rounded-2xl p-6 animate-fade-up stagger-${i + 1}`}>
                 <p className="font-display text-3xl font-bold text-gradient">{v}</p>
                 <p className="mt-1 text-sm text-muted-foreground">{l}</p>
               </div>
@@ -64,8 +62,8 @@ function About() {
         <div className="mx-auto max-w-7xl px-6">
           <SectionHeader eyebrow="Our Values" title="What we believe" />
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {values.map((v) => (
-              <div key={v.title} className="rounded-3xl bg-card p-8">
+            {values.map((v, i) => (
+              <div key={v.title} className={`card-premium p-8 animate-fade-up stagger-${i + 1}`}>
                 <div className="grid h-12 w-12 place-items-center rounded-2xl btn-royal"><v.icon className="h-6 w-6 text-white" /></div>
                 <h3 className="mt-5 font-display text-lg font-semibold">{v.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{v.desc}</p>
@@ -78,8 +76,8 @@ function About() {
       <Section>
         <SectionHeader eyebrow="Our Team" title="Operators, not order-takers" subtitle="Ex-founders, ex-CMOs, ex-Google, ex-Meta — building alongside you." />
         <div className="mt-12 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-          {team.map((t) => (
-            <div key={t.name} className="group relative overflow-hidden rounded-3xl border border-border bg-card p-8">
+          {team.map((t, i) => (
+            <div key={t.name} className={`card-premium group relative overflow-hidden p-8 animate-fade-up stagger-${Math.min(i + 1, 6)}`}>
               <div className="grid h-16 w-16 place-items-center rounded-2xl btn-royal text-xl font-bold">
                 {t.name.split(" ").map((n) => n[0]).join("")}
               </div>
@@ -93,8 +91,8 @@ function About() {
       <Section>
         <SectionHeader eyebrow="Awards" title="Recognized for craft & results" />
         <div className="mt-10 grid gap-4 md:grid-cols-4">
-          {["Awwwards SOTD", "Clutch Top B2B", "Google Partner", "Meta Business Partner"].map((a) => (
-            <div key={a} className="glass flex items-center gap-3 rounded-2xl p-5">
+          {["Awwwards SOTD", "Clutch Top B2B", "Google Partner", "Meta Business Partner"].map((a, i) => (
+            <div key={a} className={`glass flex items-center gap-3 rounded-2xl p-5 animate-fade-up stagger-${i + 1}`}>
               <Award className="h-6 w-6 text-royal" />
               <span className="text-sm font-medium">{a}</span>
             </div>
