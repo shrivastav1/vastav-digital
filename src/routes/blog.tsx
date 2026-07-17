@@ -1,0 +1,61 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { PageHero, Section } from "@/components/site/Section";
+import { CTA } from "@/components/site/CTA";
+import { ArrowRight, Clock } from "lucide-react";
+
+export const Route = createFileRoute("/blog")({
+  head: () => ({
+    meta: [
+      { title: "Blog — Vastav Digital" },
+      { name: "description", content: "Growth playbooks, AI marketing insights and case studies from the Vastav team." },
+      { property: "og:title", content: "Blog — Vastav Digital" },
+      { property: "og:description", content: "Playbooks and insights from a modern growth agency." },
+      { property: "og:url", content: "/blog" },
+    ],
+    links: [{ rel: "canonical", href: "/blog" }],
+  }),
+  component: Blog,
+});
+
+const posts = [
+  { title: "The 2026 performance marketing playbook", category: "Performance", read: "8 min", tint: "from-[#1E5BFF] to-[#6DA7FF]" },
+  { title: "AI-assisted SEO: what actually moves rankings", category: "SEO", read: "6 min", tint: "from-[#0F172A] to-[#1E5BFF]" },
+  { title: "How we cut CAC by 46% with lead qualification AI", category: "AI", read: "5 min", tint: "from-[#111111] to-[#334155]" },
+  { title: "Landing pages that convert at 12%+", category: "CRO", read: "7 min", tint: "from-[#1E5BFF] to-[#0EA5E9]" },
+  { title: "Reels-first creative for D2C brands", category: "Creative", read: "4 min", tint: "from-[#0EA5E9] to-[#1E5BFF]" },
+  { title: "GA4 + GTM: the setup we ship for every client", category: "Analytics", read: "9 min", tint: "from-[#111827] to-[#1E5BFF]" },
+];
+
+function Blog() {
+  return (
+    <>
+      <PageHero
+        eyebrow="Insights"
+        title={<>Growth <span className="text-gradient">playbooks</span> & essays.</>}
+        subtitle="Field notes from the Vastav team on performance, SEO, AI and modern marketing."
+      />
+
+      <Section>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {posts.map((p) => (
+            <a key={p.title} href="#" className="group overflow-hidden rounded-3xl border border-border bg-card transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]">
+              <div className={`aspect-[16/10] w-full bg-gradient-to-br ${p.tint}`} />
+              <div className="p-6">
+                <div className="flex items-center gap-3 text-xs">
+                  <span className="rounded-full bg-royal-soft px-3 py-1 font-medium text-royal-deep">{p.category}</span>
+                  <span className="flex items-center gap-1 text-muted-foreground"><Clock className="h-3 w-3" /> {p.read}</span>
+                </div>
+                <h3 className="mt-4 font-display text-lg font-semibold leading-snug">{p.title}</h3>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-royal-deep">
+                  Read article <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </Section>
+
+      <CTA />
+    </>
+  );
+}
